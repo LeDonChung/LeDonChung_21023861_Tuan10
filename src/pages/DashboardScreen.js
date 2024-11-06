@@ -36,7 +36,7 @@ export const DashboardScreen = ({ navigation }) => {
     )
     useEffect(() => {
         dispatch(fetchBikes())
-    }, [])
+    }, [navigation])
     useEffect(() => {
         let data = bikes.map((value) => {
             return [value.id, value.name, value.price, types.find((type) => type.id === value.typeId).name,
@@ -66,18 +66,19 @@ export const DashboardScreen = ({ navigation }) => {
     );
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingVertical: 20 }}>Bikes Dashboard</Text>
-                <TouchableOpacity style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => {
-                    navigation.navigate('edit', { data: { title: 'ADD', bike: {} } })
-                }}>
-                    <Text style={[styles.textStyle, { fontSize: 14, fontWeight: 'bold', color: '#fff', textAlign: 'center' }]}>Create</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                    <Row data={table.tableHead} style={styles.head} textStyle={styles.text} />
-                    <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingVertical: 20 }}>Bikes Dashboard</Text>
+                    <TouchableOpacity style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => {
+                        navigation.navigate('edit', { data: { title: 'ADD', bike: {} } })
+                    }}>
+                        <Text style={[styles.textStyle, { fontSize: 14, fontWeight: 'bold', color: '#fff', textAlign: 'center' }]}>Create</Text>
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+                        <Row data={table.tableHead} style={styles.head} textStyle={styles.text} />
 
                         {
                             table.tableData.map((rowData, index) => (
@@ -90,11 +91,12 @@ export const DashboardScreen = ({ navigation }) => {
                                 </TableWrapper>
                             ))
                         }
-                    </ScrollView>
 
 
-                </Table>
-            </View>
+                    </Table>
+                </View>
+            </ScrollView>
+
         </SafeAreaView>
     )
 }
