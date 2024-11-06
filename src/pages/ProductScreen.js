@@ -5,6 +5,8 @@ import { TouchableHighlight } from "react-native-gesture-handler"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { BikeItem } from "../components/BikeItem"
 import { useApi } from "../hook/useApi"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchBikes, findByTypeId } from "../redux/slices/BikeSlice"
 const types = [
     {
         id: 1,
@@ -23,26 +25,29 @@ const types = [
     },
 ]
 export const ProductScreen = ({ navigation }) => {
-    const {fetchData, findByTypeId, setData, data} = useApi('https://6457b5721a4c152cf98861de.mockapi.io/api/ck/bikes')
     const [typeChoose, setTypeChoose] = useState(types[0]);
+    const bikes = useSelector((state) => state.bikes.value);
 
+    const dispatch = useDispatch();
     useEffect(() => {
-        fetchData() 
-        console.log(data)
+        dispatch(fetchBikes())
     }, [])  
 
     useEffect(() => {
-        if(typeChoose.id === 1) {
-            fetchData()
-        } else {
-            findByTypeId(typeChoose.id)
+        const fet = async () => {
+            if(typeChoose.id === 1) {
+                await dispatch(fetchBikes())
+            } else {
+                await dispatch(findByTypeId({id: typeChoose.id}))
+            }
         }
+        fet();
     }, [typeChoose])
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
           // Gọi API để lấy dữ liệu
-          fetchData();
+          dispatch(fetchBikes())
         });
     
         return unsubscribe;
@@ -65,7 +70,7 @@ export const ProductScreen = ({ navigation }) => {
                     <View style={{flex: 8}}>
                         <FlatList
                             showsVerticalScrollIndicator={false}
-                            data={data}
+                            data={bikes}
                             renderItem={({ item }) => <BikeItem press={() => {navigation.navigate('productDetail', {data: item}); console.log('hi')}} item={item} key={item.id} />}
                             numColumns={2}
                         />
