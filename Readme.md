@@ -9,8 +9,7 @@ Thiết kế giao diện react native dùng axios gọi API, áp dụng các hoo
 Clone project
 
 ```bash
-  git clone https://github.com/LeDonChung/ReactNative.git
-  cd Tuan08
+  git clone https://github.com/LeDonChung/LeDonChung_21023861_Tuan10.git
 ```
 
 Start project with npm
@@ -20,10 +19,8 @@ Start project with npm
 ```
 ## API
 ```bash
-  https://6457b5721a4c152cf98861de.mockapi.io/api/ck/donus
+  https://6457b5721a4c152cf98861de.mockapi.io/api/ck/bikes
 ```
 ## Demo
 
-![Demo](https://github.com/LeDonChung/ReactNative/blob/main/Tuan08/assets/evidences/demo.gif)
-
-Hoặc nhấn vào đây để xem video: [View Video](https://youtu.be/oafJspYlnL8)
+![Demo](https://github.com/LeDonChung/ReactNative/blob/main/Tuan10/assets/evidences/demo.gif)
