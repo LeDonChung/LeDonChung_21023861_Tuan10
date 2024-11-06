@@ -1,5 +1,5 @@
 
-# Tuần 08
+# Tuần 10
 
 Thiết kế giao diện react native dùng axios gọi API, áp dụng các hook như: state, reducer, ngoài ra còn custom hook api
 
@@ -23,4 +23,4 @@ Start project with npm
 ```
 ## Demo
 
-![Demo](https://github.com/LeDonChung/ReactNative/blob/main/Tuan10/assets/evidences/demo.gif)
+![Demo](https://github.com/LeDonChung/LeDonChung_21023861_Tuan10/blob/main/assets/evidences/demo.gif)
