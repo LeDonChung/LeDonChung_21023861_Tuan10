@@ -1,10 +1,23 @@
-import { StyleSheet, Text, View } from "react-native"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 import React, { useEffect, useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Cell, Row, Rows, Table, TableWrapper } from "react-native-table-component"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchBikes } from "../redux/slices/BikeSlice"
 import { TouchableOpacity } from "react-native"
+const types = [
+    {
+        id: 2,
+        name: 'Roadbike'
+    }, {
+        id: 3,
+        name: 'Moutain'
+    },
+    {
+        id: 4,
+        name: 'Pina'
+    },
+]
 export const DashboardScreen = ({ navigation }) => {
     const bikes = useSelector((state) => state.bikes.value);
 
@@ -26,7 +39,7 @@ export const DashboardScreen = ({ navigation }) => {
     }, [])
     useEffect(() => {
         let data = bikes.map((value) => {
-            return [value.id, value.name, value.price, value.typeId,
+            return [value.id, value.name, value.price, types.find((type) => type.id === value.typeId).name,
                 ''
             ]
         })
@@ -37,15 +50,14 @@ export const DashboardScreen = ({ navigation }) => {
         })
     }, [bikes])
     const element = (data, index) => (
-        
+
         <View >
-            <Text>{data}</Text>
-            <TouchableOpacity onPress={() => {  }} style={{ margin: 5 }}>
+            <TouchableOpacity onPress={() => { }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Remove</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { console.log(data); navigation.navigate('edit', {data: {title: 'UPDATE', bike: data}}) }} style={{ margin: 5 }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('edit', { data: { title: 'UPDATE', bike: data } }) }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Update</Text>
                 </View>
@@ -56,8 +68,8 @@ export const DashboardScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingVertical: 20 }}>Bikes Dashboard</Text>
-                <TouchableOpacity  style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => {
-                    navigation.navigate('edit', {data: {title: 'ADD', bike: {}}})
+                <TouchableOpacity style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => {
+                    navigation.navigate('edit', { data: { title: 'ADD', bike: {} } })
                 }}>
                     <Text style={[styles.textStyle, { fontSize: 14, fontWeight: 'bold', color: '#fff', textAlign: 'center' }]}>Create</Text>
                 </TouchableOpacity>
@@ -65,19 +77,21 @@ export const DashboardScreen = ({ navigation }) => {
             <View>
                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
                     <Row data={table.tableHead} style={styles.head} textStyle={styles.text} />
-                    {/* <Rows data={table.tableData} textStyle={{ fontSize: 15, textAlign: 'left' }} /> */}
+                    <ScrollView showsVerticalScrollIndicator={false}>
 
-                    {
-                        table.tableData.map((rowData, index) => (
-                            <TableWrapper key={index} style={styles.row}>
-                                {
-                                    rowData.map((cellData, cellIndex) => (
-                                        <Cell key={cellIndex} data={cellIndex === 4 ? element(bikes[index], index) : cellData} textStyle={styles.text} />
-                                    ))
-                                }
-                            </TableWrapper>
-                        ))
-                    }
+                        {
+                            table.tableData.map((rowData, index) => (
+                                <TableWrapper key={index} style={styles.row}>
+                                    {
+                                        rowData.map((cellData, cellIndex) => (
+                                            <Cell key={cellIndex} data={cellIndex === 4 ? element(bikes.find((value) => rowData[0] === value.id), index) : cellData} textStyle={styles.text} />
+                                        ))
+                                    }
+                                </TableWrapper>
+                            ))
+                        }
+                    </ScrollView>
+
 
                 </Table>
             </View>

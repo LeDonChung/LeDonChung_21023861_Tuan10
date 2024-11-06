@@ -22,18 +22,18 @@ export const EditScreen = ({navigaion, route}) => {
     const {data} = route.params;
     const [title, setTitle] = useState('ADD')
     useEffect(() => {
-    console.log(data)
 
         if(data !== null && data !== undefined) {
             setTitle(data.title);
             setBike(data.bike);
+            setTypeChoose(types.find((value) => value.id === data.bike.typeId));
         }
     }, [])
     return (
     
             <SafeAreaView>
                 <View style={{ height: 60, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 19, fontWeight: '700', color: "#fff" }}></Text>
+                    <Text style={{ fontSize: 19, fontWeight: '700', color: "#000" }}>{title}</Text>
                 </View>
     
                 <View style={{ marginVertical: 10 }}>
