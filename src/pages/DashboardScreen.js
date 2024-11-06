@@ -30,7 +30,6 @@ export const DashboardScreen = ({ navigation }) => {
                 ''
             ]
         })
-        console.log(data)
 
         setTable({
             tableHead: ['ID', 'Name', 'Price', 'typeId', 'Action'],
@@ -38,13 +37,14 @@ export const DashboardScreen = ({ navigation }) => {
         })
     }, [bikes])
     const element = (data, index) => (
+        
         <View >
-            <TouchableOpacity onPress={() => { }} style={{ margin: 5 }}>
+            <TouchableOpacity onPress={() => {  }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Remove</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { }} style={{ margin: 5 }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('edit', {data: {title: 'UPDATE', bike: data}}) }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Update</Text>
                 </View>
@@ -55,7 +55,9 @@ export const DashboardScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingVertical: 20 }}>Bikes Dashboard</Text>
-                <TouchableOpacity style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => navigation.navigate('dashboard')}>
+                <TouchableOpacity  style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 5, marginHorizontal: 5, paddingHorizontal: 10 }} onPress={() => {
+                    navigation.navigate('edit', {data: {title: 'ADD', bike: {}}})
+                }}>
                     <Text style={[styles.textStyle, { fontSize: 14, fontWeight: 'bold', color: '#fff', textAlign: 'center' }]}>Create</Text>
                 </TouchableOpacity>
             </View>
