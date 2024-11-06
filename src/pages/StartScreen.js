@@ -20,6 +20,10 @@ export const StartScreen = ({navigation}) => {
                     <TouchableOpacity style={{borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 10}} onPress={() => navigation.navigate('products')}>
                         <Text style={[styles.textStyle, {fontSize: 27, fontWeight: 'bold', color: '#fff', textAlign: 'center'}]}>Get Started</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity style={{borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 10, marginVertical: 5}} onPress={() => navigation.navigate('dashboard')}>
+                        <Text style={[styles.textStyle, {fontSize: 27, fontWeight: 'bold', color: '#fff', textAlign: 'center'}]}>Dashboard</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </>
