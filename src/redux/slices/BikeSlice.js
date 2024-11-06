@@ -38,6 +38,15 @@ const findByTypeId = createAsyncThunk('findByTypeId', async (data) => {
         console.log(error)
     }
 })
+
+const setLikeProduct = createAsyncThunk('setLikeProduct', async (data) => {
+    try {
+        const response = await axios.put(`${URL_API}/${data.id}`, {like: data.status});
+        return response.data;
+    } catch (error) {
+        setError(error)
+    }
+})
 const bikeSlice = createSlice({
   name: "bikes",
   initialState: {value: []},
@@ -59,9 +68,13 @@ const bikeSlice = createSlice({
     builder.addCase(findByTypeId.fulfilled, (state, action) => {
         state.value =  action.payload;
     })
+
+    builder.addCase(setLikeProduct.fulfilled, (state, action) => {
+        
+    })
   }
 });
 
-export {fetchBikes, updateBikes, addBike, findByTypeId}
+export {fetchBikes, updateBikes, addBike, findByTypeId, setLikeProduct}
 export const { setBikes } = bikeSlice.actions
 export default bikeSlice.reducer;

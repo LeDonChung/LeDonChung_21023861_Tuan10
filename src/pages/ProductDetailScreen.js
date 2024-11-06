@@ -4,14 +4,15 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useApi } from "../hook/useApi";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from "react-redux";
+import { setLikeProduct } from "../redux/slices/BikeSlice";
 export const ProductDetailScreen = ({route, navigation}) => {
     const {data} = route.params;
     const getSalePrice = (price, discount) => {
         return Math.round(price - (price / discount)); 
     }
-    const {setLikeProduct} = useApi('https://6457b5721a4c152cf98861de.mockapi.io/api/ck/bikes')
     const [like, setLike] = useState(data.like);
-
+    const dispatch = useDispatch()
     return (
         <>
             <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
@@ -34,7 +35,7 @@ export const ProductDetailScreen = ({route, navigation}) => {
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center' , marginBottom: 20}}>
                         {like ? 
-                            <IconAntDesign name="heart" size={30} color="#E94141" onPress={() => {setLike(!like); setLikeProduct(data.id, !like)}} /> : <IconAntDesign name="hearto" size={30} color="#E94141" onPress={() => {setLike(!like); setLikeProduct(data.id, !like)}} />}
+                            <IconAntDesign name="heart" size={30} color="#E94141" onPress={() => {setLike(!like); setLikeProduct(data.id, !like)}} /> : <IconAntDesign name="hearto" size={30} color="#E94141" onPress={() => {setLike(!like); dispatch(setLikeProduct({id: data.id, status: !like}))}} />}
                         <TouchableOpacity style={{ borderRadius: 40, backgroundColor: '#E94141', paddingVertical: 10, flex: 1, marginLeft: 30 }}>
                             <Text style={[styles.textStyle, { fontSize: 27, fontWeight: 'bold', color: '#fff', textAlign: 'center' }]}>Add to card</Text>
                         </TouchableOpacity>
