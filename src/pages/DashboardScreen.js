@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Cell, Row, Rows, Table, TableWrapper } from "react-native-table-component"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchBikes } from "../redux/slices/BikeSlice"
+import { fetchBikes, removeById } from "../redux/slices/BikeSlice"
 import { TouchableOpacity } from "react-native"
 const types = [
     {
@@ -36,7 +36,7 @@ export const DashboardScreen = ({ navigation }) => {
     )
     useEffect(() => {
         dispatch(fetchBikes())
-    }, [navigation])
+    }, [navigation, bikes])
     useEffect(() => {
         let data = bikes.map((value) => {
             return [value.id, value.name, value.price, types.find((type) => type.id === value.typeId).name,
@@ -49,12 +49,13 @@ export const DashboardScreen = ({ navigation }) => {
             tableData: data
         })
     }, [bikes])
+
     const element = (data, index) => (
 
         <View >
-            <TouchableOpacity onPress={() => { }} style={{ margin: 5 }}>
-                <View style={styles.btn}>
-                    <Text style={styles.btnText}>Remove</Text>
+            <TouchableOpacity onPress={() => { dispatch(removeById({id: data.id})) }} style={{ margin: 5 }}>
+                <View style={styles.btn}> 
+                    <Text style={styles.btnText}>Remove</Text> 
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('edit', { data: { title: 'UPDATE', bike: data } }) }} style={{ margin: 5 }}>

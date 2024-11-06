@@ -47,6 +47,15 @@ const setLikeProduct = createAsyncThunk('setLikeProduct', async (data) => {
         setError(error)
     }
 })
+
+const removeById = createAsyncThunk('removeById', async (data) => {
+    try {
+        const response = await axios.delete(`${URL_API}/${data.id}`);
+        return data.id;
+    } catch (error) {
+        setError(error)
+    }
+})
 const bikeSlice = createSlice({
   name: "bikes",
   initialState: {value: []},
@@ -72,9 +81,13 @@ const bikeSlice = createSlice({
     builder.addCase(setLikeProduct.fulfilled, (state, action) => {
         
     })
+
+    builder.addCase(removeById.fulfilled, (state, action) => {
+        state.value = state.value.filter((value) => value.id !== action.payload)
+    }) 
   }
 });
 
-export {fetchBikes, updateBikes, addBike, findByTypeId, setLikeProduct}
+export {fetchBikes, updateBikes, addBike, findByTypeId, setLikeProduct, removeById}
 export const { setBikes } = bikeSlice.actions
 export default bikeSlice.reducer;
