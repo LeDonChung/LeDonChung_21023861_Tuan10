@@ -39,12 +39,13 @@ export const DashboardScreen = ({ navigation }) => {
     const element = (data, index) => (
         
         <View >
+            <Text>{data}</Text>
             <TouchableOpacity onPress={() => {  }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Remove</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('edit', {data: {title: 'UPDATE', bike: data}}) }} style={{ margin: 5 }}>
+            <TouchableOpacity onPress={() => { console.log(data); navigation.navigate('edit', {data: {title: 'UPDATE', bike: data}}) }} style={{ margin: 5 }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>Update</Text>
                 </View>
@@ -71,7 +72,7 @@ export const DashboardScreen = ({ navigation }) => {
                             <TableWrapper key={index} style={styles.row}>
                                 {
                                     rowData.map((cellData, cellIndex) => (
-                                        <Cell key={cellIndex} data={cellIndex === 4 ? element(cellData, index) : cellData} textStyle={styles.text} />
+                                        <Cell key={cellIndex} data={cellIndex === 4 ? element(bikes[index], index) : cellData} textStyle={styles.text} />
                                     ))
                                 }
                             </TableWrapper>
